@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace exchange_rate_api.Controllers
 {
@@ -7,24 +8,27 @@ namespace exchange_rate_api.Controllers
     [Route("api/[controller]")]
     public class ExchangeController : ControllerBase
     {
-        private readonly ExchangeRateService _exchangeRateService;
+        private readonly HttpClient _httpClient;
 
-        public ExchangeController(ExchangeRateService exchangeRateService)
+        public ExchangeController(HttpClient httpClient)
         {
-            _exchangeRateService = exchangeRateService;
+            _httpClient = httpClient;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetExchangeRate()
         {
-            try
+            var requestUri = "https://v6.exchangerate-api.com/v6/de57eae077d496d8b855b3e3/latest/USD";
+            HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
             {
-                var exchangeRate = await _exchangeRateService.GetExchangeRateAsync();
-                return Ok(exchangeRate);
+                var responseData = await response.Content.ReadAsStringAsync();
+                return Content(responseData, "application/json");
             }
-            catch (HttpRequestException ex)
+            else
             {
-                return StatusCode(500, ex.Message);
+                return StatusCode((int)response.StatusCode, new { Error = $"Erro na requisição: {response.StatusCode}" });
             }
         }
     }
