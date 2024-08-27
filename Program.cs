@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "API de Taxas de Câmbio",
         Version = "v1",
-        Description = "API para obter taxas de câmbio.",
+        Description = "API para obter taxa de câmbio.",
     });
 
 });

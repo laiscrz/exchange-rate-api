@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Swashbuckle.AspNetCore.Annotations;
+using Newtonsoft.Json.Linq;
 
 namespace exchange_rate_api.Controllers
 {
@@ -13,6 +12,7 @@ namespace exchange_rate_api.Controllers
     public class ExchangeController : ControllerBase
     {
         private readonly HttpClient _httpClient;
+        private const string ApiUrl = "https://v6.exchangerate-api.com/v6/de57eae077d496d8b855b3e3/latest/USD"; 
 
         public ExchangeController(HttpClient httpClient)
         {
@@ -20,24 +20,40 @@ namespace exchange_rate_api.Controllers
         }
 
         /// <summary>
-        /// Obtém a taxa de câmbio atual para USD.
+        /// Obtém a taxa de câmbio mais recente do dólar americano (USD) para o real brasileiro (BRL).
         /// </summary>
-        /// <returns>Taxa de câmbio em formato JSON.</returns>
+        /// <returns>Retorna um objeto JSON contendo a taxa de câmbio atual, o par de moedas, e a data da consulta.</returns>
         [HttpGet]
-        [SwaggerOperation(Summary = "Obtém a taxa de câmbio mais recente.", Description = "Retorna a taxa de câmbio do USD para outras moedas.")]
+        [SwaggerOperation(Summary = "Obtém a taxa de câmbio mais recente do USD para BRL.", Description = "Retorna a taxa de câmbio do USD para BRL.")]
         public async Task<IActionResult> GetExchangeRate()
         {
-            var requestUri = "https://v6.exchangerate-api.com/v6/de57eae077d496d8b855b3e3/latest/USD";
-            HttpResponseMessage response = await _httpClient.GetAsync(requestUri);
+            HttpResponseMessage response = await _httpClient.GetAsync(ApiUrl);
 
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();
-                return Content(responseData, "application/json");
+                var json = JObject.Parse(responseData);
+                var exchangeRate = json["conversion_rates"]?["BRL"]?.Value<decimal>();
+
+                if (exchangeRate.HasValue)
+                {
+                    var result = new
+                    {
+                        CurrencyPair = "USD/BRL",
+                        Rate = exchangeRate.Value,
+                        Date = DateTime.Now
+                    };
+
+                    return Ok(result);
+                }
+                else
+                {
+                    return Ok(new { Error = "Taxa de câmbio para BRL não encontrada." });
+                }
             }
             else
             {
-                return StatusCode((int)response.StatusCode, new { Error = $"Erro na requisição: {response.StatusCode}" });
+                return Ok(new { Error = $"Erro na requisição: {response.StatusCode}" });
             }
         }
     }
