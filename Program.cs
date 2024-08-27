@@ -11,6 +11,22 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "API de Taxas de Câmbio",
+        Version = "v1",
+        Description = "API para obter taxas de câmbio.",
+    });
+
+});
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.EnableAnnotations();
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
