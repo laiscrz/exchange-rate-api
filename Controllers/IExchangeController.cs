@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace exchange_rate_api.Controller
+namespace exchange_rate_api.Controllers
 {
     public interface IExchangeController
     {
-        Task<JsonResult> GetExchangeRate();
+        JsonResult GetExchangeRate();
     }
 }
