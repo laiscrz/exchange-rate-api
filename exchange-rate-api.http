@@ -1,6 +1,6 @@
 @exchange_rate_api_HostAddress = http://localhost:5003
 
-GET {{exchange_rate_api_HostAddress}}/weatherforecast/
+GET {{exchange_rate_api_HostAddress}}/api/exchange
 Accept: application/json
 
 ###
