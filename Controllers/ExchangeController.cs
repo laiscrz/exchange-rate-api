@@ -5,14 +5,14 @@ using Newtonsoft.Json.Linq;
 namespace exchange_rate_api.Controllers
 {
     /// <summary>
-    /// Controlador responsavel por gerenciar api cambio.
+    /// Controlador responsável por gerenciar API de câmbio.
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class ExchangeController : ControllerBase
+    public class ExchangeController : ControllerBase, IExchangeController
     {
         private readonly HttpClient _httpClient;
-        private const string ApiUrl = "https://v6.exchangerate-api.com/v6/de57eae077d496d8b855b3e3/latest/USD"; 
+        private const string ApiUrl = "https://v6.exchangerate-api.com/v6/de57eae077d496d8b855b3e3/latest/USD";
 
         public ExchangeController(HttpClient httpClient)
         {
@@ -25,7 +25,7 @@ namespace exchange_rate_api.Controllers
         /// <returns>Retorna um objeto JSON contendo a taxa de câmbio atual, o par de moedas, e a data da consulta.</returns>
         [HttpGet]
         [SwaggerOperation(Summary = "Obtém a taxa de câmbio mais recente do USD para BRL.", Description = "Retorna a taxa de câmbio do USD para BRL.")]
-        public async Task<IActionResult> GetExchangeRate()
+        public async Task<JsonResult> GetExchangeRate()
         {
             HttpResponseMessage response = await _httpClient.GetAsync(ApiUrl);
 
@@ -44,17 +44,22 @@ namespace exchange_rate_api.Controllers
                         Date = DateTime.Now
                     };
 
-                    return Ok(result);
+                    return new JsonResult(result);
                 }
                 else
                 {
-                    return Ok(new { Error = "Taxa de câmbio para BRL não encontrada." });
+                    return new JsonResult(new { Error = "Taxa de câmbio para BRL não encontrada." });
                 }
             }
             else
             {
-                return Ok(new { Error = $"Erro na requisição: {response.StatusCode}" });
+                return new JsonResult(new { Error = $"Erro na requisição: {response.StatusCode}" });
             }
+        }
+
+        JsonResult IExchangeController.GetExchangeRate()
+        {
+            throw new NotImplementedException();
         }
     }
 }
