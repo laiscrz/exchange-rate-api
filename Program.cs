@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using exchange_rate_api.Controllers;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +13,11 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "API de Taxas de Câmbio",
+        Title = "API de Consulta de Taxas de Câmbio",
         Version = "v1",
-        Description = "API para obter taxa de câmbio.",
+        Description = "Esta API permite consultar a taxa de câmbio do dólar americano (USD) em relação ao real brasileiro (BRL).",
     });
 
 });
