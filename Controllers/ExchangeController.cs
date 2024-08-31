@@ -23,6 +23,9 @@ namespace exchange_rate_api.Controllers
         /// Obtém a taxa de câmbio mais recente do dólar americano (USD) para o real brasileiro (BRL).
         /// </summary>
         /// <returns>Retorna um objeto JSON contendo a taxa de câmbio atual, o par de moedas, e a data da consulta.</returns>
+        /// <response code="200">Retorna a taxa de câmbio do USD para BRL com sucesso.</response>
+        /// <response code="400">Requisição malformada ou erro ao processar a taxa de câmbio.</response>
+        /// <response code="500">Erro interno no servidor ou erro na chamada à API externa.</response>
         [HttpGet]
         [SwaggerOperation(Summary = "Obtém a taxa de câmbio mais recente do USD para BRL.", Description = "Retorna a taxa de câmbio do USD para BRL.")]
         public async Task<JsonResult> GetExchangeRate()
