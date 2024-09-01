@@ -50,7 +50,7 @@ namespace exchange_rate_api.Controllers
             {
                 var responseData = await response.Content.ReadAsStringAsync();
                 var json = JObject.Parse(responseData);
-                var exchangeRate = json["conversion_rates"]?["BRL"]?.Value<decimal>();
+                var exchangeRate = json["conversion_rates"]?["BRL"]?.Value<double>();
 
                 if (exchangeRate.HasValue)
                 {
