@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace exchange_rate_api.Controllers
 {
@@ -44,33 +47,50 @@ namespace exchange_rate_api.Controllers
         /// <returns>Retorna um JsonResult com a taxa de câmbio ou mensagem de erro.</returns>
         private async Task<JsonResult> FetchExchangeRate()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(ApiUrl);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var responseData = await response.Content.ReadAsStringAsync();
-                var json = JObject.Parse(responseData);
-                var exchangeRate = json["conversion_rates"]?["BRL"]?.Value<double>();
+                HttpResponseMessage response = await _httpClient.GetAsync(ApiUrl);
 
-                if (exchangeRate.HasValue)
+                if (response.IsSuccessStatusCode)
                 {
-                    var result = new
-                    {
-                        CurrencyPair = "USD/BRL",
-                        Rate = exchangeRate.Value,
-                        Date = DateTime.Now
-                    };
+                    Console.WriteLine("Requisição bem-sucedida!");
+                    
+                    var responseData = await response.Content.ReadAsStringAsync();
+                    var json = JObject.Parse(responseData);
+                    var exchangeRate = json["conversion_rates"]?["BRL"]?.Value<double>();
 
-                    return new JsonResult(result);
+                    if (exchangeRate.HasValue)
+                    {
+                        var result = new
+                        {
+                            CurrencyPair = "USD/BRL",
+                            Rate = exchangeRate.Value,
+                            Date = DateTime.Now
+                        };
+
+                        return new JsonResult(result);
+                    }
+                    else
+                    {
+                        return new JsonResult(new { Error = "Taxa de câmbio para BRL não encontrada." });
+                    }
                 }
                 else
                 {
-                    return new JsonResult(new { Error = "Taxa de câmbio para BRL não encontrada." });
+                    return new JsonResult(new { Error = $"Erro na resposta da API: {response.StatusCode}" });
                 }
             }
-            else
+            catch (HttpRequestException ex)
             {
-                return new JsonResult(new { Error = $"Erro na requisição: {response.StatusCode}" });
+                return new JsonResult(new { Error = $"Erro ao enviar a requisição: {ex.Message}" });
+            }
+            catch (JsonException ex)
+            {
+                return new JsonResult(new { Error = $"Erro ao processar a resposta JSON: {ex.Message}" });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { Error = $"Erro inesperado: {ex.Message}" });
             }
         }
     }
