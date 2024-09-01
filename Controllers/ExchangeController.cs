@@ -53,7 +53,7 @@ namespace exchange_rate_api.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine("Requisição bem-sucedida!");
+                    Console.WriteLine("Requisição à API externa concluída com sucesso!");
                     
                     var responseData = await response.Content.ReadAsStringAsync();
                     var json = JObject.Parse(responseData);
