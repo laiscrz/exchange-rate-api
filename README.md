@@ -79,4 +79,4 @@ As seguintes ferramentas foram usadas neste projeto:
 
 ## 🔗 Projeto no Azure DevOps
 
-O código-fonte e a documentação adicional estão disponíveis no [repositório público do Azure DevOps](https://dev.azure.com/your-organization/your-repository).
+O código-fonte e a documentação adicional estão disponíveis no [repositório público do Azure DevOps](https://dev.azure.com/lalahaylou/exchange-rate-api).
