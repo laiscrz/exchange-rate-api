@@ -63,7 +63,7 @@ namespace exchange_rate_api.Controllers
 
                     if (exchangeRate.HasValue)
                     {
-                         var result = new ConversionRate
+                        var result = new ConversionRate
                         {
                             BRL = exchangeRate.Value
                         };
