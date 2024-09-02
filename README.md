@@ -26,7 +26,7 @@ Este projeto é uma API de consulta desenvolvida em .NET que consulta o endpoint
 ## ⚙️ Configuração
 
 1. **Chave da API**
-   - Substitua `YOUR_API_KEY` na constante `ApiUrl` em `ExchangeController` pela sua chave de API real.
+   - Substitua `API_KEY` na constante `ApiUrl` em `ExchangeController` pela sua chave de API real.
 
 2. **Instalação de Dependências**
    - Certifique-se de ter o [.NET SDK](https://dotnet.microsoft.com/download) instalado.
