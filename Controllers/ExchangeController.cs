@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Newtonsoft.Json.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Text.Json;
+using exchange_rate_api.Models;
 
 namespace exchange_rate_api.Controllers
 {
@@ -32,6 +31,8 @@ namespace exchange_rate_api.Controllers
         /// <response code="500">Erro interno no servidor ou erro na chamada à API externa.</response>
         [HttpGet]
         [SwaggerOperation(Summary = "Obtém a taxa de câmbio mais recente do USD para BRL.", Description = "Retorna a taxa de câmbio do USD para BRL.")]
+        [Tags("Consulta de Câmbio")]
+        [ProducesResponseType(typeof(ConversionRate), StatusCodes.Status200OK)]
         public async Task<JsonResult> GetExchangeRate()
         {
             return await FetchExchangeRate();
@@ -62,14 +63,19 @@ namespace exchange_rate_api.Controllers
 
                     if (exchangeRate.HasValue)
                     {
-                        var result = new
+                         var result = new ConversionRate
                         {
-                            CurrencyPair = "USD/BRL",
-                            Rate = exchangeRate.Value,
-                            Date = DateTime.Now
+                            BRL = exchangeRate.Value
                         };
 
-                        return new JsonResult(result);
+                        var responseJson = new JsonResult(new
+                        {
+                            CurrencyPair = "USD/BRL",
+                            Rate = result.BRL,
+                            Date = DateTime.Now
+                        });
+                        
+                        return responseJson;
                     }
                     else
                     {
