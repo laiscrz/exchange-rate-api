@@ -15,7 +15,8 @@ namespace exchange_rate_api.Controllers
     public class ExchangeController : ControllerBase, IExchangeController
     {
         private readonly HttpClient _httpClient;
-        private const string ApiUrl = "https://v6.exchangerate-api.com/v6/de57eae077d496d8b855b3e3/latest/USD";
+        private const string API_KEY = "de57eae077d496d8b855b3e3";
+        private const string ApiUrl = $"https://v6.exchangerate-api.com/v6/{API_KEY}/latest/USD";
 
         public ExchangeController(HttpClient httpClient)
         {

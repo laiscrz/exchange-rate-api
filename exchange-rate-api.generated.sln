@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exchange-rate-api", "exchange-rate-api.csproj", "{3B713F55-CCF0-4422-8A19-DDDA0F1027A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "exchange-rate-api", "exchange-rate-api.csproj", "{4E76EBDE-A47D-4672-B1F9-F080D2B41418}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3B713F55-CCF0-4422-8A19-DDDA0F1027A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B713F55-CCF0-4422-8A19-DDDA0F1027A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B713F55-CCF0-4422-8A19-DDDA0F1027A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B713F55-CCF0-4422-8A19-DDDA0F1027A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E76EBDE-A47D-4672-B1F9-F080D2B41418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E76EBDE-A47D-4672-B1F9-F080D2B41418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E76EBDE-A47D-4672-B1F9-F080D2B41418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E76EBDE-A47D-4672-B1F9-F080D2B41418}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
