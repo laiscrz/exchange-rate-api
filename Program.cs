@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "API de Consulta de Taxas de Câmbio",
+        Title = "API de Consulta de Taxa de Câmbio",
         Version = "v1",
         Description = "Esta API permite consultar a taxa de câmbio do dólar americano (USD) em relação ao real brasileiro (BRL).",
     });
