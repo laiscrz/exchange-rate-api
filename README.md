@@ -65,6 +65,18 @@ A documentação da API está disponível em Swagger, que fornece detalhes sobre
 > [!NOTE]
 > O link Swagger só estará disponível após iniciar o projeto localmente.
 
+## 💻 Tecnologias
+
+As seguintes ferramentas foram usadas neste projeto:
+
+### 🖥️ Ambientes de Desenvolvimento Integrado (IDEs):
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+
+
+### 📚 Linguagem de Programação:
+![CSharp](https://img.shields.io/badge/CSharp-4CAF50?style=for-the-badge&logo=csharp&logoColor=white)
+![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=.net&logoColor=white)
+
 ## 🔗 Projeto no Azure DevOps
 
 O código-fonte e a documentação adicional estão disponíveis no [repositório público do Azure DevOps](https://dev.azure.com/your-organization/your-repository).
