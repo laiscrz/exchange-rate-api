@@ -1,6 +1,8 @@
 # 🌍 Exchange Rate API
 
-> **Checkpoint 4° Avaliativo da disciplina de Advanced Business With .NET**
+> #### 🏆 Avaliação
+> Este projeto foi submetido como parte do Checkpoint 4° Avaliativo da disciplina de Advanced Business With .NET e recebeu **nota máxima** do professor.
+
 
 ## 📜 Descrição
 
